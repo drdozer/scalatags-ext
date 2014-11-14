@@ -1,5 +1,11 @@
 package scalatags.ext
 
+import rx.Rx
+import rx.ops._
+
+import scalatags.ext.PairwiseAlignment.{Match, Insert, Delete}
+
+
 class DataDiff[D, K](items: Rx[Seq[D]], byKey: D => K, areEqual: (D, D) => Boolean) {
   var dataMap = Rx {
     (items().zipWithIndex.map { case(d, i) => byKey(d) -> (d, i) }).toMap
