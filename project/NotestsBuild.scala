@@ -47,7 +47,7 @@ object NotestsBuild extends Build {
     id = s"${prj}_shared_jvm",
     base =  modules / "shared",
     settings = buildSettings ++ scalajsJvmSettings ++
-      Dependencies.scalarx ++ Dependencies.scalatags ++ Dependencies.sclalajsDom
+      Dependencies.scalarx ++ Dependencies.scalatags
   )
 
   lazy val sharedjs = Project(
