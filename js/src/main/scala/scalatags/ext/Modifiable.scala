@@ -14,7 +14,7 @@ import scalatags.generic
  */
 trait Modifiable {
 
-  implicit class EnhancedElement[Output <: Element](elem: Output) {
+  implicit class ModifiableElement[Output <: Element](elem: Output) {
     def modifyWith: ElementModifier[Output] = ElementModifier(elem, Nil)
   }
 
