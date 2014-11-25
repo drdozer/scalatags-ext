@@ -7,7 +7,7 @@ resolvers += Resolver.url(
   Resolver.ivyStylePatterns)
 
 // Wrapper plugin for scalajs
-addSbtPlugin("com.github.inthenow" % "sbt-scalajs" % "0.56.3")
+addSbtPlugin("com.github.inthenow" % "sbt-scalajs" % "0.56.4")
 
 //// END REQUIRED SETUP
 
