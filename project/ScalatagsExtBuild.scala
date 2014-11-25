@@ -8,7 +8,7 @@ import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
 
 
-object NotestsBuild extends Build {
+object ScalatagsExtBuild extends Build {
   val prj = "scalajs-ext"
   
   val modules = file(".") 
