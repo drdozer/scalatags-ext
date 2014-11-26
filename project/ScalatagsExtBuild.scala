@@ -2,7 +2,6 @@
 import sbt._
 import sbt.Keys._
 import com.inthenow.sbt.scalajs._
-
 import com.inthenow.sbt.scalajs.SbtScalajs._
 import scala.scalajs.sbtplugin.ScalaJSPlugin._
 import ScalaJSKeys._
@@ -22,7 +21,8 @@ object ScalatagsExtBuild extends Build {
     version := "0.1.1"
   )
 
-  lazy val scalatagsExt           = module.project(scalatagsExtJvm, scalatagsExtJs)
+  lazy val scalatagsExt           = module.project(scalatagsExtJvm, scalatagsExtJs).settings(
+    packageBin in Compile  := file(""))
   lazy val scalatagsExtJvm        = module.jvmProject(scalatagsExtSharedJvm)
   lazy val scalatagsExtJs         = module.jsProject(scalatagsExtSharedJs)
   lazy val scalatagsExtSharedJvm  = module.jvmShared().settings(
