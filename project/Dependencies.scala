@@ -148,5 +148,5 @@ object Dependencies {
 
   val scalatags = Seq(libraryDependencies += "com.scalatags" %%%! "scalatags" % "0.4.1")
 
-  val scalarx = Seq(libraryDependencies += "com.scalarx" %%%! "scalarx" % "0.2.6")
+  val scalarx = Seq(libraryDependencies += "com.scalarx" %%%! "scalarx" % "0.2.6.drdozer")
 }
