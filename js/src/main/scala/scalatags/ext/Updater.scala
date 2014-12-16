@@ -38,7 +38,7 @@ trait Updater[T] {
 
 object Updater {
 
-  implicit class RxEnhancer[T : Ordering](_rx: Rx[IndexedSeq[T]]) {
+  implicit class RxEnhancer[T : Ordering : ScoreFunction](_rx: Rx[IndexedSeq[T]]) {
 
     def updateWith(updater: Updater[T]): Modifier = new Modifier {
 

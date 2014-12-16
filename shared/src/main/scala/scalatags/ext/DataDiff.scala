@@ -96,17 +96,12 @@ case object DataDiff {
 
 }
 
-class SeqDiff[D, K : Ordering](items: Rx[IndexedSeq[D]], byKey: D => K, areEqual: (D, D) => Boolean) {
+class SeqDiff[D, K](items: Rx[IndexedSeq[D]], byKey: D => K, scoreFunction: ScoreFunction[D])
+                   (implicit kOrd: Ordering[K])
+{
   import scalatags.ext.SeqDiff._
 
-  private def score(m: PairwiseAlignment.Move[D]): Int = m match {
-    case PairwiseAlignment.Delete(_, _) => -1
-    case PairwiseAlignment.Insert(_, _) => -1
-    case PairwiseAlignment.Match(_, _, a, b) =>
-      if(implicitly[Ordering[K]].equiv(byKey(a), byKey(b))) 0 else -100
-  }
-
-  private val ga = new GreedyAlignment(score)(Ordering.by(byKey))
+  private val ga = new GreedyAlignment(scoreFunction)(Ordering.by(byKey))
 
   val aligned = items.diff(ga.align, ga.align(IndexedSeq.empty, _))
 
@@ -118,7 +113,7 @@ class SeqDiff[D, K : Ordering](items: Rx[IndexedSeq[D]], byKey: D => K, areEqual
           Exited(iVal, OldIndex(i))
         case Insert(j, jVal) =>
           Entered(jVal, NewIndex(j))
-        case Match(i, j, iVal, jVal) if i == j && areEqual(iVal, jVal) =>
+        case Match(i, j, iVal, jVal) if i == j && kOrd.equiv(byKey(iVal), byKey(jVal)) =>
           Unchanged((iVal, jVal), (OldIndex(i), NewIndex(j)))
         case Match(i, j, iVal, jVal) =>
           Modified((iVal, jVal), (OldIndex(i), NewIndex(j)))
@@ -145,9 +140,8 @@ class SeqDiff[D, K : Ordering](items: Rx[IndexedSeq[D]], byKey: D => K, areEqual
 
 object SeqDiff {
 
-  def apply[D : Ordering](items: Rx[IndexedSeq[D]]): SeqDiff[D, D] = {
-    def deq(d1: D, d2: D): Boolean = implicitly[Ordering[D]].compare(d1, d2) == 0
-    new SeqDiff[D, D](items, identity, deq)
+  def apply[D : Ordering : ScoreFunction](items: Rx[IndexedSeq[D]]): SeqDiff[D, D] = {
+    new SeqDiff[D, D](items, identity, implicitly[ScoreFunction[D]])
   }
 
   case class OldIndex(index: Int) extends AnyVal
