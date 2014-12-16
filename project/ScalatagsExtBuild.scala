@@ -15,7 +15,7 @@ object ScalatagsExtBuild extends Build {
 
   val logger = ConsoleLogger()
 
-  val baseVersion = "0.1.1"
+  val baseVersion = "0.1.2"
 
   lazy val buildSettings: Seq[Setting[_]] = bintrayPublishSettings ++ Seq(
     organization := "uk.co.turingatemyhamster",
@@ -31,7 +31,7 @@ object ScalatagsExtBuild extends Build {
     publishMavenStyle := true,
     repository in bintray := "maven",
     bintrayOrganization in bintray := None,
-    licenses +=("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.html"))
+    licenses += ("Apache-2.0", url("http://www.apache.org/licenses/LICENSE-2.0.html"))
   )
 
   lazy val scalatagsExt           = module.project(scalatagsExtJvm, scalatagsExtJs).settings(
@@ -58,18 +58,20 @@ object ScalatagsExtBuild extends Build {
     )
   )
 
-  lazy val scalatagsExtSharedJvmSettings = Seq(
+  lazy val scalatagsExtSharedJvmSettings = utest.jsrunner.Plugin.utestJvmSettings ++ Seq(
     libraryDependencies ++= Seq(
       "com.scalatags" %% "scalatags" % "0.4.1",
-      "uk.co.turingatemyhamster" %% "scalarx_shared" % "0.2.6"
+      "uk.co.turingatemyhamster" %% "scalarx_shared" % "0.2.6",
+      "com.lihaoyi" %% "utest" % "0.2.4" % "test"
     )
   )
 
-  lazy val scalatagsExtSharedJsSettings = Seq(
+  lazy val scalatagsExtSharedJsSettings = utest.jsrunner.Plugin.utestJsSettings ++ Seq(
     libraryDependencies ++= Seq(
       "com.scalatags" %%% "scalatags" % "0.4.1",
       "uk.co.turingatemyhamster" %%% "scalarx_shared" % "0.2.6",
-      "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6"
+      "org.scala-lang.modules.scalajs" %%% "scalajs-dom" % "0.6",
+      "com.lihaoyi" %% "utest" % "0.2.4" % "test"
     )
   )
 
