@@ -2,6 +2,7 @@ package scalatags.ext
 
 import org.scalajs.dom
 
+import scala.collection.immutable.NumericRange
 import scala.scalajs.js
 import scalatags.JsDom
 import scalatags.JsDom.implicits._
@@ -24,6 +25,14 @@ trait Animations {
       dur = duration)
   }
 
+  implicit class DoubleEnhancer(val _ptl: Range.Partial[Double, NumericRange[Double]]) {
+    val _rng = _ptl.by(0.0)
+    def dur(duration: String): SVGAnimationTemplate = SVGAnimationTemplate(
+      from = _rng.start.toString,
+      to = _rng.end.toString,
+      dur = duration)
+  }
+
   // attributeName and attributeTime are worked out once this is bound to a named attribute
   case class SVGAnimationTemplate(dur: String,
                                   from: String,
@@ -35,6 +44,8 @@ trait Animations {
     def freeze = copy(fill = "freeze")
 
     def withFill(fill: String) = copy(fill = fill)
+
+    def begin(begin: String) = copy(begin = begin)
 
     def modifyWith(mods: JsDom.Modifier*) = copy(modifiers = modifiers ++ mods)
   }
@@ -50,12 +61,10 @@ trait Animations {
           dur := v.dur,
           begin := v.begin,
           fill := v.fill,
-          v.modifiers,
-          modifyWith { el =>
-            dom.window.setTimeout({() => js.Dynamic(el).beginElement()}, 1)
-          }
+          v.modifiers
         )
       ).render
     }
   }
+
 }
