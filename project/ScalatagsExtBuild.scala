@@ -15,7 +15,7 @@ object ScalatagsExtBuild extends Build {
 
   val logger = ConsoleLogger()
 
-  val baseVersion = "0.1.2"
+  val baseVersion = "0.1.3"
 
   lazy val buildSettings: Seq[Setting[_]] = bintrayPublishSettings ++ Seq(
     organization := "uk.co.turingatemyhamster",
