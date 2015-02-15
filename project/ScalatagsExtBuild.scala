@@ -49,13 +49,13 @@ object ScalatagsExtBuild extends Build {
   lazy val scalatagsExtPlatformJvmSettings = Seq(
     libraryDependencies ++= Seq(
       "org.scalacheck" %% "scalacheck" % "1.12.1" % "test",
-      "uk.co.turingatemyhamster" %% "scalarx_shared" % "0.2.6"
+      "com.lihaoyi" %% "scalarx" % "0.2.7"
     )
   )
 
   lazy val scalatagsExtPlatformJsSettings = Seq(
     libraryDependencies ++= Seq(
-      "uk.co.turingatemyhamster" %%% "scalarx_shared" % "0.2.6"
+      "com.lihaoyi" %%% "scalarx" % "0.2.7"
     )
   )
 
@@ -70,7 +70,7 @@ object ScalatagsExtBuild extends Build {
   lazy val scalatagsExtSharedJsSettings = Seq( //utest.jsrunner.Plugin.utestJsSettings ++ Seq(
     libraryDependencies ++= Seq(
       "com.lihaoyi" %%% "scalatags" % "0.4.5",
-      "uk.co.turingatemyhamster" %%% "scalarx_shared" % "0.2.6",
+      "com.lihaoyi" %%% "scalarx" % "0.2.7",
       "org.scala-js" %%% "scalajs-dom" % "0.8.0",
       "com.lihaoyi" %%% "utest" % "0.3.0" % "test"
     )
