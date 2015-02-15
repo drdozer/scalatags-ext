@@ -23,8 +23,8 @@ addSbtPlugin("com.sksamuel.scoverage" %% "sbt-coveralls" % "0.0.5")
 addSbtPlugin("com.typesafe.sbt" % "sbt-pgp" % "0.8.3")
 
 // Wrapper plugin for scalajs
-addSbtPlugin("com.github.inthenow" % "sbt-scalajs" % "0.56.6")
+addSbtPlugin("com.github.inthenow" % "sbt-scalajs" % "0.6.0")
 
 addSbtPlugin("com.github.mpeltonen" % "sbt-idea" % "1.6.0")
 
-addSbtPlugin("com.lihaoyi" % "utest-js-plugin" % "0.2.4")
+//addSbtPlugin("com.lihaoyi" %% "utest" % "0.3.0")
