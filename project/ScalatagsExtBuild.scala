@@ -13,7 +13,22 @@ object ScalatagsExtBuild extends Build {
 
   implicit val logger = ConsoleLogger()
 
-  val module = CrossModule(SharedBuild, id = "scalatags-ext", defaultSettings = buildSettings)
+  /** the root project. */
+  lazy val scalatagsM  = CrossModule(RootBuild,
+    id              = "scalatags",
+    defaultSettings = buildSettings)
+
+  lazy val scalatags = scalatagsM.project(Module, scalatagsJvm, scalatagsJs)
+
+  lazy val scalatagsJvm = scalatagsM.project(Jvm, scalatagsExtJvm)
+
+  lazy val scalatagsJs = scalatagsM.project(Js, scalatagsExtJs)
+
+  val module = CrossModule(SharedBuild,
+    id = "ext",
+    baseDir= "scalatags-ext",
+    defaultSettings = buildSettings,
+    modulePrefix    = "scalatags-")
 
   val baseVersion = "0.1.3"
 
