@@ -1,6 +1,6 @@
 package scalatags.ext
 
-import rx.Rx
+import rx._
 import rx.ops._
 
 import scalatags.ext.PairwiseAlignment.{Match, Insert, Delete}
